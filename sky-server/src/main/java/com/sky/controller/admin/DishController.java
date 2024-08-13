@@ -2,16 +2,19 @@ package com.sky.controller.admin;
 
 
 import com.sky.dto.DishDTO;
+import com.sky.dto.DishPageQueryDTO;
+import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
+import com.sky.vo.DishItemVO;
+import com.sky.vo.DishVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -35,4 +38,53 @@ public class  DishController {
         return Result.success();
     }
 
+    /**
+     * 菜品分页查询
+     * @return
+     */
+    @ApiOperation("菜品分页查询")
+    @GetMapping("/page")
+    public Result<PageResult> getDishByPage(DishPageQueryDTO dishPageQueryDTO) {
+
+        log.info("菜品分页查询：{}",dishPageQueryDTO);
+        PageResult pageResult = dishService.pageQuery(dishPageQueryDTO);
+        return Result.success(pageResult);
+    }
+
+    /**
+     * 删除菜品
+     * @param ids
+     * @return
+     */
+    @ApiOperation("删除菜品")
+    @DeleteMapping
+    public Result deleteDish(@RequestParam List<Long> ids) {
+
+        log.info("删除菜品:{}",ids);
+        dishService.deleteBatch(ids);
+        return Result.success();
+
+    }
+
+    /**
+     * 查询菜品
+     * @param id
+     * @return
+     */
+    @ApiOperation("查询菜品")
+    @GetMapping("/{id}")
+    public Result<DishVO> getDishById(@PathVariable Long id) {
+
+        log.info("通过id查询菜品:{}",id);
+        DishVO dishVO = dishService.getDishById(id);
+        return Result.success(dishVO);
+    }
+
+    @PutMapping
+    @ApiOperation("修改菜品")
+    public Result updateDish(@RequestBody DishDTO dishDTO) {
+        log.info("修改菜品：{}",dishDTO);
+        dishService.updateDish(dishDTO);
+        return Result.success();
+    }
 }
