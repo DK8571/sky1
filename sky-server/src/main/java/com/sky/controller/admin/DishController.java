@@ -87,4 +87,18 @@ public class  DishController {
         dishService.updateDish(dishDTO);
         return Result.success();
     }
+
+    /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    @GetMapping("/list")
+    @ApiOperation("根据分类id查询菜品")
+    public Result listDishByCategoryId(@RequestParam Long categoryId) {
+
+        log.info("根据分类id查询菜品:{}",categoryId);
+        List<DishVO> dishVOS = dishService.listDishByCategoryId(categoryId);
+        return Result.success(dishVOS);
+    }
 }

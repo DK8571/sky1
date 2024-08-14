@@ -47,4 +47,7 @@ public interface DishMapper {
     void deleteByIds(List<Long> ids);
 
     void updateDish(Dish dish);
+
+    @Select("SELECT d.*, c.name categoryName from dish d LEFT outer join category c on d.category_id = c.id where d.category_id = #{categoryId} order by d.create_time desc")
+    List<DishVO> listDishByCategoryId(Long categoryId);
 }
