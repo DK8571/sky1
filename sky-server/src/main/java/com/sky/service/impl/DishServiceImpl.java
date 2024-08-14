@@ -158,4 +158,13 @@ public class DishServiceImpl implements DishService {
         log.info("dishVOS:{}",dishVOS);
         return dishVOS;
     }
+
+    @Override
+    public void startOrStop(Integer status, Long id) {
+
+        Dish dish = new Dish();
+        dish.setId(id);
+        dish.setStatus(status);
+        dishMapper.updateDish(dish);
+    }
 }
