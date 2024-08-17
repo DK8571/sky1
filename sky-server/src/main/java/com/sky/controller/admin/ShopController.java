@@ -1,5 +1,6 @@
 package com.sky.controller.admin;
 
+import com.sky.context.BaseContext;
 import com.sky.result.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,16 +21,19 @@ public class ShopController {
 
     @PutMapping("/{status}")
     @ApiOperation("设置店铺状态")
-    public Result setSatus(@PathVariable Integer satus) {
-        log.info("setSatus {}", satus);
-        redisTemplate.opsForValue().set("SHOP_SATUS", satus);
+    public Result setSatus(@PathVariable Integer status) {
+        log.info("setSatus {}", status);
+        Long id = BaseContext.getCurrentId();
+        redisTemplate.opsForValue().set("SHOP_SATUS" + id, status);
         return Result.success();
     }
 
     @GetMapping("/status")
     @ApiOperation("获取店铺状态")
     public Result<Integer> getSatus() {
-        Integer status = (Integer) redisTemplate.opsForValue().get("SHOP_SATUS");
+        Long id = BaseContext.getCurrentId();
+        Integer status = (Integer) redisTemplate.opsForValue().get("SHOP_SATUS" + id);
+        log.info("getSatus {}", status);
         return Result.success(status);
     }
 }

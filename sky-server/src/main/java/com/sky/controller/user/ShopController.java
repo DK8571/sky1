@@ -1,5 +1,6 @@
 package com.sky.controller.user;
 
+import com.sky.context.BaseContext;
 import com.sky.result.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,7 +23,8 @@ public class ShopController {
     @GetMapping("/status")
     @ApiOperation("获取店铺状态")
     public Result<Integer> getSatus() {
-        Integer status = (Integer) redisTemplate.opsForValue().get("SHOP_SATUS");
+        Long id = BaseContext.getCurrentId();
+        Integer status = (Integer) redisTemplate.opsForValue().get("SHOP_SATUS" + id);
         return Result.success(status);
     }
 }
