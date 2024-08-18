@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController("userShopController")
-@RequestMapping("/admin/user")
+@RequestMapping("/user/shop")
 @Api(tags = "店铺状态")
 public class ShopController {
 
@@ -23,8 +23,8 @@ public class ShopController {
     @GetMapping("/status")
     @ApiOperation("获取店铺状态")
     public Result<Integer> getSatus() {
-        Long id = BaseContext.getCurrentId();
-        Integer status = (Integer) redisTemplate.opsForValue().get("SHOP_SATUS" + id);
+//        Long id = BaseContext.getCurrentId();
+        Integer status = (Integer) redisTemplate.opsForValue().get("SHOP_SATUS");
         return Result.success(status);
     }
 }

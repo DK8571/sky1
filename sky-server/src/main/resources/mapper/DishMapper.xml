@@ -15,6 +15,7 @@
         order by create_time desc
     </select>
 
+
     <delete id="deleteByIds">
         DELETE from dish where id in
         <foreach collection="ids" item="id" separator="," open="(" close=")">
@@ -36,4 +37,14 @@
         </set>
         where id = #{id}
     </update>
+
+    <select id="listDishByCategoryId" resultType="com.sky.entity.Dish">
+        SELECT d.*, c.name categoryName from dish d LEFT outer join category c on d.category_id = c.id
+        <where>
+            <if test="name != null">and d.name like concat('%',#{name},'%')</if>
+            <if test="categoryId != null">and d.category_id = #{categoryId}</if>
+            <if test="status != null">and d.status = #{status}</if>
+        </where>
+        order by d.create_time desc
+    </select>
 </mapper>

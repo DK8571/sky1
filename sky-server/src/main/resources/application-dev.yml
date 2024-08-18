@@ -19,3 +19,7 @@ sky:
     access-key-id: LTAI5tLFfkwknDJygayP4yea
     access-key-secret: 1JKOhDICJXeA58M6j4ZDKEBOjQKyDZ
     bucket-name: glx-db
+
+  wechat:
+    appid: wxa2296592dbe5b3b0
+    secret: eacd0955f6c28a433079e5686f96c4af
