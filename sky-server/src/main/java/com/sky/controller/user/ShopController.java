@@ -24,7 +24,7 @@ public class ShopController {
     @ApiOperation("获取店铺状态")
     public Result<Integer> getSatus() {
 //        Long id = BaseContext.getCurrentId();
-        Integer status = (Integer) redisTemplate.opsForValue().get("SHOP_SATUS");
+        Integer status = (Integer) redisTemplate.opsForValue().get("SHOP:SHOP_SATUS");
         return Result.success(status);
     }
 }
